@@ -9,5 +9,7 @@ module com.example.projet_fx1 {
     exports com.example.projet_fx1;
     exports com.example.exercice2;
     exports com.example.exercice4;
+    exports com.example.exercice6;
+
 
 }
