@@ -8,4 +8,6 @@ module com.example.projet_fx1 {
     opens com.example.projet_fx1 to javafx.fxml;
     exports com.example.projet_fx1;
     exports com.example.exercice2;
+    exports com.example.exercice4;
+
 }
