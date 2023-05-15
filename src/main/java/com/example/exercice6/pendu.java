@@ -12,7 +12,13 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class pendu extends Application {
-    private String motSecret = "PENDU";
+
+
+    Dico mot= new Dico();
+
+    private String motSecret = mot.getMot();
+
+
     private int viesRestantes = 7;
     private StringBuilder motActuel;
 
@@ -26,44 +32,38 @@ public class pendu extends Application {
         BorderPane root = new BorderPane();
         root.setPadding(new Insets(10));
 
-        // Création image pendu
+        System.out.println(motSecret);
+        // Création de l'image du pendu
         Image imagePendu = new Image(getClass().getResourceAsStream("pendu7.png"));
         imageViewPendu = new ImageView(imagePendu);
         root.setCenter(imageViewPendu);
 
-        // Création d'un new label
-
-
+        // Création du label pour le mot actuel
         labelMotActuel = new Label();
         labelMotActuel.setTextFill(Color.BLACK);
         root.setTop(labelMotActuel);
 
-        // Création du TextField
-
-
+        // Création du TextField pour les lettres disponibles
         textFieldLettre = new TextField();
         textFieldLettre.setPrefWidth(200);
         textFieldLettre.setOnAction(event -> {
-            String lettre = textFieldLettre.getText().toUpperCase();
+            String lettre = textFieldLettre.getText().toLowerCase();
             textFieldLettre.clear();
             verifierLettre(lettre);
         });
         root.setLeft(textFieldLettre);
 
-        // label nombre vie restantes
-
+        // Création du label pour le nombre de vies restantes
         labelViesRestantes = new Label("Vies restantes : " + viesRestantes);
         root.setRight(labelViesRestantes);
 
-        // Affi fenêtre
-
+        // Affichage de la fenêtre
         Scene scene = new Scene(root, 500, 300);
         primaryStage.setTitle("Jeu du Pendu");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Init mot actuels
-
+        // Initialisation du mot actuel avec des tirets
         motActuel = new StringBuilder();
         for (int i = 0; i < motSecret.length(); i++) {
             motActuel.append("-");
@@ -87,6 +87,7 @@ public class pendu extends Application {
 
         if (viesRestantes == 0) {
             finPartie(false);
+            labelViesRestantes.setText("Vies restantes : 0");
         } else if (motActuel.indexOf("-") == -1) {
             finPartie(true);
         } else {
@@ -96,7 +97,7 @@ public class pendu extends Application {
     }
 
     private void mettreAJourImagePendu() {
-        int indexImage =0 + viesRestantes;
+        int indexImage = 0 + viesRestantes;
         Image imagePendu = new Image(getClass().getResourceAsStream("pendu" + indexImage + ".png"));
         imageViewPendu.setImage(imagePendu);
 
